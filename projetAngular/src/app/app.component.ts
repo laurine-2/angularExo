@@ -1,29 +1,39 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { STUDENTS } from './mock-student-list';
 import { Student } from './Student';
 
 @Component({
   selector: 'app-root',
-  template: `
-   
-      <h1>
-        Liste des etudiants!
-      </h1>  
-      
-  `,
+  templateUrl: 'app.component.html',
+  
   styles: []
+  
 })
 export class AppComponent implements OnInit{
-  etudiant: Student[] = STUDENTS;
+  StudentList: Student[] = STUDENTS;
+  StudentSelected: Student| undefined;
+
  ngOnInit() :void{
-  console.table(this.etudiant);
-  console.log(this.etudiant[0].name);
+  console.table(this.StudentList);
+ 
  }
 
- selectStudent = (StudentName: string) =>{
-  console.log('vous avez choisir un etudant ${studentName}')
+ selectOneStudent (StudentId: string) {
+  const Student: Student|undefined = this.StudentList.find(
+    Student => Student.id == +StudentId
+  );
+
+  if (Student){
+    console.log('lvous avez clique sur letudiant ${Student.name}');
+    this.StudentSelected = Student;
+  }else{
+    console.log("letudiant nexiste pas");
+    this.StudentSelected = Student;
+  }
  }
+
 }
+
 
 
 
